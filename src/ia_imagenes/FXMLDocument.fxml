@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="929.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ia_imagenes.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" layoutX="33.0" layoutY="489.0" onAction="#abrirImagen" text="Abrir Imagen" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <ImageView fx:id="imageView" fitHeight="418.0" fitWidth="432.0" layoutX="26.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageViewNueva" fitHeight="418.0" fitWidth="432.0" layoutX="472.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="147.0" layoutY="460.0" prefHeight="17.0" prefWidth="126.0" text="ORIGINAL" />
+      <Label layoutX="641.0" layoutY="460.0" text="NUEVA" />
+      <Button layoutX="143.0" layoutY="489.0" mnemonicParsing="false" onAction="#escalaGris" text="Escala De Gris" />
+      <Button layoutX="254.0" layoutY="489.0" mnemonicParsing="false" onAction="#correspondenciaNoLineal" text="Correspondencia No-Lineal " />
+    </children>
+</AnchorPane>
