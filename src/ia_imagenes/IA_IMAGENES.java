@@ -20,10 +20,21 @@ public class IA_IMAGENES extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+       /* FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
         Parent root = (Parent)loader.load();
         FXMLDocumentController controller = (FXMLDocumentController)loader.getController();
         controller.setStage(stage);
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
+        
+        */
+        stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLMenu.fxml"));
+        Parent root = (Parent)loader.load();
+        FXMLMenuController controller = (FXMLMenuController)loader.getController();
+       // controller.setStage(stage);
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

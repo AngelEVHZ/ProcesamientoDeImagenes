@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ia_imagenes.FXMLMenuController">
+   <children>
+      <Button layoutX="81.0" layoutY="39.0" mnemonicParsing="false" onAction="#tarea1" prefHeight="42.0" prefWidth="291.0" text="1 Visualización de imágenes de alto rango dinámico" />
+      <Button layoutX="81.0" layoutY="105.0" mnemonicParsing="false" onAction="#tarea2" prefHeight="42.0" prefWidth="134.0" text="2 Eliminación de ruido" />
+      <Button layoutX="81.0" layoutY="158.0" mnemonicParsing="false" onAction="#tarea3" prefHeight="42.0" prefWidth="329.0" text="3 Substracción de imágenes para detección de alteraciones" />
+      <Button layoutX="79.0" layoutY="220.0" mnemonicParsing="false" onAction="#tarea4" prefHeight="54.0" prefWidth="334.0" text="4 Mejora del contraste de imágenes nocturnas de carreteras" />
+   </children>
+</AnchorPane>
