@@ -7,15 +7,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="929.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ia_imagenes.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia_imagenes.FXMLDocumentController">
     <children>
-        <Button fx:id="button" layoutX="33.0" layoutY="489.0" onAction="#abrirImagen" text="Abrir Imagen" />
+        <Button fx:id="button" layoutX="14.0" layoutY="460.0" onAction="#abrirImagen" prefHeight="61.0" prefWidth="86.0" text="Abrir Imagen" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <ImageView fx:id="imageView" fitHeight="418.0" fitWidth="432.0" layoutX="26.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="imageViewNueva" fitHeight="418.0" fitWidth="432.0" layoutX="472.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="147.0" layoutY="460.0" prefHeight="17.0" prefWidth="126.0" text="ORIGINAL" />
-      <Label layoutX="641.0" layoutY="460.0" text="NUEVA" />
-      <Button layoutX="143.0" layoutY="489.0" mnemonicParsing="false" onAction="#escalaGris" text="Escala De Gris" />
-      <Button layoutX="254.0" layoutY="489.0" mnemonicParsing="false" onAction="#correspondenciaNoLineal" text="Correspondencia No-Lineal " />
+      <Label layoutX="143.0" layoutY="438.0" prefHeight="17.0" prefWidth="126.0" text="ORIGINAL" />
+      <Label layoutX="642.0" layoutY="438.0" text="NUEVA" />
+      <Button layoutX="133.0" layoutY="502.0" mnemonicParsing="false" onAction="#escalaGris" text="a) Escala De Gris" />
+      <Button layoutX="290.0" layoutY="502.0" mnemonicParsing="false" onAction="#correspondenciaNoLineal" text="b) Correspondencia No-Lineal " />
+      <TextField fx:id="correspondenciaNoLinealY" layoutX="366.0" layoutY="474.0" prefHeight="25.0" prefWidth="69.0" text="1" />
+      <Label layoutX="325.0" layoutY="478.0" prefHeight="17.0" prefWidth="28.0" text="Y =" />
+      <Button layoutX="542.0" layoutY="502.0" mnemonicParsing="false" onAction="#correspondenciaNoLinealPorComponente" prefHeight="25.0" prefWidth="292.0" text="c)  correspondencia no-lineal γ a cada componente " />
+      <TextField fx:id="textR" layoutX="577.0" layoutY="469.0" prefHeight="25.0" prefWidth="39.0" text="1" />
+      <TextField fx:id="textG" layoutX="649.0" layoutY="469.0" prefHeight="25.0" prefWidth="39.0" text="1" />
+      <TextField fx:id="textB" layoutX="741.0" layoutY="469.0" prefHeight="25.0" prefWidth="39.0" text="1" />
+      <Label layoutX="559.0" layoutY="469.0" text="R" />
+      <Label layoutX="633.0" layoutY="473.0" text="G" />
+      <Label layoutX="721.0" layoutY="473.0" text="B" />
     </children>
 </AnchorPane>

@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -30,6 +31,11 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML   private ImageView imageView;
     @FXML   private ImageView imageViewNueva;
+    @FXML   private TextField correspondenciaNoLinealY;
+    @FXML   private TextField textR;
+    @FXML   private TextField textG;
+    @FXML   private TextField textB;
+    
     private Stage stage;
     private  ImagenMetodos metodos;
     
@@ -45,8 +51,17 @@ public class FXMLDocumentController implements Initializable {
     }
     @FXML
     private void correspondenciaNoLineal(ActionEvent event) {
-        //this.metodos.correspondenciaNoLineal();
-        this.metodos.prueba();
+        double y  = Double.parseDouble(correspondenciaNoLinealY.getText() );
+        this.metodos.correspondenciaNoLineal(y);
+       
+    }
+    @FXML
+    private void correspondenciaNoLinealPorComponente(ActionEvent event) {
+        double r  = Double.parseDouble(textR.getText() );
+        double g  = Double.parseDouble(textG.getText() );
+        double b  = Double.parseDouble(textB.getText() );
+        this.metodos.correspondenciaNoLinealPorComponente(r,g,b);
+       
     }
     
     

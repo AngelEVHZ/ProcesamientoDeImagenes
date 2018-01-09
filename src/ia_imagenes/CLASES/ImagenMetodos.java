@@ -51,25 +51,7 @@ public class ImagenMetodos {
     }
     
     public void prueba(){
-        Mat median = new Mat();
-       median = imageOriginal.clone();
-       
-        
-        /* Imgproc.medianBlur(imageOriginal,median,5);
-        this.imageViewNueva.setImage(Utils.mat2Image(median));*/
-   /*
-        
-       for(int i=0; i < imageOriginal.rows();i++)
-           for(int j=0;j<imageOriginal.cols();j++){
-               double [] data = imageOriginal.get(i, j);
-               data[0] = data[0]* 0.3;//b
-               data[1] = data[1]* 0;//g
-               data[2] = data[2]* 0;//r
-               median.put(i, j, data);
-        }*/
-     
-       this.imageViewNueva.setImage(Utils.mat2Image(median));
-       
+ 
     }
     
     
@@ -88,8 +70,38 @@ public class ImagenMetodos {
      
     }
 
-    public void correspondenciaNoLineal() {
+    public void correspondenciaNoLineal(double y) {
+        
         escalaGrises();
+        Mat median = new Mat();
+        median = imageBlack.clone();
+        
+       for(int i=0; i < imageBlack.rows();i++)
+           for(int j=0;j<imageBlack.cols();j++){
+               double [] data = imageBlack.get(i, j);
+               data[0] = data[0] *y;
+               median.put(i, j, data);
+        }
+     
+       this.imageViewNueva.setImage(Utils.mat2Image(median));
+       
+    }
+
+    public void correspondenciaNoLinealPorComponente(double r, double g, double b) {
+    
+        Mat median = new Mat();
+        median = imageOriginal.clone();
+        
+       for(int i=0; i < imageOriginal.rows();i++)
+           for(int j=0;j<imageOriginal.cols();j++){
+               double [] data = imageOriginal.get(i, j);
+               data[0] = data[0] *b;
+               data[1] = data[1] *g;
+               data[2] = data[2] *r;
+               median.put(i, j, data);
+        }
+     
+       this.imageViewNueva.setImage(Utils.mat2Image(median));
     
     }
     
