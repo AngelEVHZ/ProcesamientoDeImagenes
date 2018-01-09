@@ -29,7 +29,11 @@ public class FXMLTarea3Controller implements Initializable {
     private  ImagenMetodos metodos;
      @FXML
     private void abrirImagenes(ActionEvent event) {
-        
+        metodos.cargarImagenes();
+    }
+     @FXML
+    private void diferencia(ActionEvent event) {
+        metodos.diferencia();
     }
     
     public void setStage(Stage stage) {

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import static org.opencv.core.CvType.CV_8U;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Scalar;
@@ -46,6 +47,7 @@ public class ImagenMetodos {
          this.picture2 = new Mat();
          this.fileChooser = new FileChooser();
         File file1=null,file2=null;
+        this.fileChooser.setInitialDirectory(new File("./src/recursos/"));
         List<File> list = fileChooser.showOpenMultipleDialog(this.stage);
         if (list!=null) {
             file1 = list.get(0);
@@ -60,6 +62,36 @@ public class ImagenMetodos {
         
         }
    
+    }
+    
+    public void diferencia(){
+        Mat diference = new Mat();
+        
+        Mat p1 = new Mat();
+        Mat p2 = new Mat();
+        Imgproc.cvtColor(picture1,p1 , Imgproc.COLOR_BGR2GRAY);
+        Imgproc.cvtColor(picture2,p2 , Imgproc.COLOR_BGR2GRAY);
+        diference = p1.clone();
+        
+       
+        for(int i=0; i < p1.rows();i++)
+           for(int j=0;j<p1.cols();j++){
+               double [] data = p1.get(i, j);
+               double [] data2 = p2.get(i, j);
+               
+               data[0] = data[0] - data2[0] ;
+       //        data[1] = data[1] - data2[1] ;
+       //        data[2] = data[2] - data2[2] ;
+               
+               diference.put(i, j, data);
+        }
+        
+        Imgproc.threshold(diference,diference, 123,255, Imgproc.THRESH_BINARY);
+        
+        
+       this.imageViewNueva.setImage(Utils.mat2Image(diference));
+       
+    
     }
     
     public void prueba(){
