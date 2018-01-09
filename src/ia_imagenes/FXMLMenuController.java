@@ -58,7 +58,16 @@ public class FXMLMenuController implements Initializable {
         stage.show();
     }
     @FXML
-    private void tarea4(ActionEvent event) {
+    private void tarea4(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLTarea4.fxml"));
+        Parent root = (Parent)loader.load();
+        FXMLTarea4Controller controller = (FXMLTarea4Controller)loader.getController();
+        controller.setStage(this.stage);
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
         
     }
     

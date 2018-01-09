@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="929.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ia_imagenes.FXMLTarea4Controller">
+   <children>
+      <ImageView fx:id="imageOriginal" fitHeight="418.0" fitWidth="432.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="histograma" fitHeight="174.0" fitWidth="206.0" layoutX="539.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="25.0" layoutY="468.0" mnemonicParsing="false" onAction="#abrirImagen" prefHeight="52.0" prefWidth="86.0" text="Abrir Imagen" />
+      <Button layoutX="147.0" layoutY="482.0" mnemonicParsing="false" onAction="#escalaGrises" text="Escala de Grises" />
+   </children>
+</AnchorPane>
