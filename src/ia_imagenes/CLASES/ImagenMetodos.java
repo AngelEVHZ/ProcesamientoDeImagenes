@@ -7,6 +7,7 @@ package ia_imagenes.CLASES;
 
 
 import java.io.File;
+import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -27,6 +28,7 @@ public class ImagenMetodos {
     private ImageView imageViewNueva;
     private Mat imageBlack;
     private Mat imageOriginal;
+    private Mat picture1, picture2;
     private FileChooser fileChooser;
     private Stage stage;
     public ImagenMetodos(ImageView imageView,ImageView imageViewNueva, Stage stage){
@@ -37,17 +39,27 @@ public class ImagenMetodos {
           
     }
     
-    public void cargarImagen(){
-        init();
-        File file = new File("./src/recursos/");
-        this.fileChooser.setInitialDirectory(file);
-        file = this.fileChooser.showOpenDialog(stage);
-        this.imageOriginal = Imgcodecs.imread(file.getAbsolutePath());
-        this.imageView.setImage(Utils.mat2Image(this.imageOriginal));
-        this.imageViewNueva.setImage(Utils.mat2Image(this.imageOriginal));
-    
-    
-       
+  
+    //tarea 3
+    public void cargarImagenes(){//tarea 3
+         this.picture1 = new Mat();
+         this.picture2 = new Mat();
+         this.fileChooser = new FileChooser();
+        File file1=null,file2=null;
+        List<File> list = fileChooser.showOpenMultipleDialog(this.stage);
+        if (list!=null) {
+            file1 = list.get(0);
+            if (list.size() > 1){
+                file2 = list.get(1);
+                this.picture1 = Imgcodecs.imread(file1.getAbsolutePath());
+                this.picture2 = Imgcodecs.imread(file2.getAbsolutePath());
+                
+                this.imageView.setImage(Utils.mat2Image(this.picture1));
+                this.imageViewNueva.setImage(Utils.mat2Image(this.picture2));
+            }
+        
+        }
+   
     }
     
     public void prueba(){
@@ -55,22 +67,31 @@ public class ImagenMetodos {
     }
     
     
-    public void escalaGrises(){
+    //tarea 1
+    public void cargarImagen(){//tarea 1
+        init();
+        File file = new File("./src/recursos/");
+        this.fileChooser.setInitialDirectory(file);
+        file = this.fileChooser.showOpenDialog(stage);
+        this.imageOriginal = Imgcodecs.imread(file.getAbsolutePath());
+        this.imageView.setImage(Utils.mat2Image(this.imageOriginal));
+        this.imageViewNueva.setImage(Utils.mat2Image(this.imageOriginal));
+   
+    }
+    public void escalaGrises(){//tarea 1
          
         Imgproc.cvtColor(imageOriginal,imageBlack , Imgproc.COLOR_BGR2GRAY);
         this.imageViewNueva.setImage(Utils.mat2Image(this.imageBlack));
-        
-        
+       
        
     }
-    public void init(){
+    public void init(){ //tarea 1
         this.fileChooser = new FileChooser();
         this.imageOriginal = new Mat();
         this.imageBlack= new Mat();
      
     }
-
-    public void correspondenciaNoLineal(double y) {
+    public void correspondenciaNoLineal(double y) { //tarea 1
         
         escalaGrises();
         Mat median = new Mat();
@@ -86,8 +107,7 @@ public class ImagenMetodos {
        this.imageViewNueva.setImage(Utils.mat2Image(median));
        
     }
-
-    public void correspondenciaNoLinealPorComponente(double r, double g, double b) {
+    public void correspondenciaNoLinealPorComponente(double r, double g, double b) {//tarea 1
     
         Mat median = new Mat();
         median = imageOriginal.clone();

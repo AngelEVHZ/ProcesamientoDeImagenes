@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="929.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ia_imagenes.FXMLTarea3Controller">
+   <children>
+      <ImageView fx:id="imageOriginal" fitHeight="418.0" fitWidth="432.0" layoutX="26.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageNueva" fitHeight="418.0" fitWidth="432.0" layoutX="465.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="26.0" layoutY="465.0" mnemonicParsing="false" onAction="#abrirImagenes" prefHeight="55.0" prefWidth="97.0" text="Abrir Imagenes" />
+   </children>
+</AnchorPane>
