@@ -235,6 +235,7 @@ public class ImagenMetodos {
     public void correspondenciaNoLineal(double y) { //tarea 1
         
         escalaGrises();
+        
         Mat median = new Mat();
         median = imageBlack.clone();
         

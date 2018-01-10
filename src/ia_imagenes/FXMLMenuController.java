@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -43,8 +45,22 @@ public class FXMLMenuController implements Initializable {
         stage.show();
     }
     @FXML
-    private void tarea2(ActionEvent event) {
+    private void tarea2(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Video.fxml"));
+        Parent root = (Parent)loader.load();
+        VideoController controller = (VideoController)loader.getController();
+        controller.setStage(this.stage);
+
+        Scene scene = new Scene(root);
         
+        stage.setScene(scene);
+        stage.show();
+        stage.setOnCloseRequest((new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we)
+				{
+					controller.setClosed();
+				}
+			}));
     }
     @FXML
     private void tarea3(ActionEvent event) throws IOException {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="605.0" prefWidth="1049.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia_imagenes.VideoController">
+	<center>
+	   <ImageView fx:id="currentFrame" />
+   </center>
+   <right>
+      <VBox alignment="CENTER_LEFT" spacing="10" visible="false">
+         <padding>
+            <Insets left="10" right="20" />
+         </padding>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox alignment="CENTER">
+         <padding>
+            <Insets bottom="25" left="25" right="25" top="25" />
+         </padding>
+         <children>
+            <Button mnemonicParsing="false" onAction="#abrirArchivo" text="Abrir Archivo" />
+            <Button fx:id="button" alignment="center" onAction="#startCamera" text="Play" />
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <ImageView fx:id="currentFrame2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

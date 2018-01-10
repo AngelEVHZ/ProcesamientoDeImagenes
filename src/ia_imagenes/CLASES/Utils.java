@@ -42,9 +42,9 @@ public final class Utils
 		}
 		catch (Exception e)
 		{
-			// show the exception details
-			System.err.println("Cannot convert the Mat object:");
-			e.printStackTrace();
+			// show the exception details/*
+			/*System.err.println("Cannot convert the Mat object:");
+			e.printStackTrace();*/
 			
 			return null;
 		}
