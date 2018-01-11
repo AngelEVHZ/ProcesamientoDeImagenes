@@ -175,8 +175,9 @@ public class VideoController
         private void reduceRuido(Mat frame){
             double e;
 
-            System.out.println("---------------------------------------------------------------------------");
-            if(frame.isContinuous() && in<30){
+            
+            if(frame.isContinuous() ){
+                if(in<30){
                         if(bandera){
                             f = frame.clone();
                             bandera =false;
@@ -205,9 +206,13 @@ public class VideoController
                              f= aux.clone();
                              
                             }
-                                                in++;                
-                               System.out.println(in);                     
-                                                   
+                                                                   
+                }  else if (in==30){
+                Imgcodecs.imwrite("sinruido.jpg", f);
+                    System.out.println("Imagen sin ruido creada");
+            }
+                 in++;                
+                               
                                                 
         }
            
