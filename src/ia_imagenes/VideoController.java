@@ -60,7 +60,7 @@ public class VideoController
          private FileChooser fileChooser;
 	Mat f;
         boolean bandera= true;
-	
+	int in=0;
 	public void initialize()
 	{
 		this.capture = new VideoCapture();
@@ -77,6 +77,7 @@ public class VideoController
 		
 		this.currentFrame.setPreserveRatio(true);
                 this.bandera=true;
+                this.in=0;
 		
 		if (!this.cameraActive)
 		{
@@ -109,7 +110,7 @@ public class VideoController
 				};
 				
 				this.timer = Executors.newSingleThreadScheduledExecutor();
-				this.timer.scheduleAtFixedRate(frameGrabber, 0,30, TimeUnit.MILLISECONDS);
+				this.timer.scheduleAtFixedRate(frameGrabber, 0,33, TimeUnit.MILLISECONDS);
 				
 				
 				this.button.setText("Parar");
@@ -173,7 +174,9 @@ public class VideoController
         
         private void reduceRuido(Mat frame){
             double e;
-            if(frame.isContinuous()){
+
+            System.out.println("---------------------------------------------------------------------------");
+            if(frame.isContinuous() && in<30){
                         if(bandera){
                             f = frame.clone();
                             bandera =false;
@@ -187,22 +190,23 @@ public class VideoController
                                      
                                      double [] data = f.get(i, j);
                                      double [] data2 = aux.get(i, j);
-                                     
-                                        e = j+1;
-                                     data2[0] = ((((j+1)-1)/e) * data[0]) +((1/e)*data2[0]);
                                     
-                                     data2[1] = ((((j+1)-1)/e) * data[1]) +((1/e)*data2[1]);
+                                        e = in+1;
+                                     data2[0] = ((((in+1)-1)/e) * data[0]) +((1/e)*data2[0]);
+                                    
+                                     data2[1] = ((((in+1)-1)/e) * data[1]) +((1/e)*data2[1]);
                                      
-                                     data2[2] = ((((j+1)-1)/e) * data[2]) +((1/e)*data2[2]);
+                                     data2[2] = ((((in+1)-1)/e) * data[2]) +((1/e)*data2[2]);
                                      
                                      aux.put(i, j, data2);
                                  }
                                  
                              }
                              f= aux.clone();
+                             
                             }
-                                                    
-                                                    
+                                                in++;                
+                               System.out.println(in);                     
                                                    
                                                 
         }
@@ -218,7 +222,7 @@ public class VideoController
 			{
 				
 				this.timer.shutdown();
-				this.timer.awaitTermination(30, TimeUnit.MILLISECONDS);
+				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
 			}
 			catch (InterruptedException e)
 			{
