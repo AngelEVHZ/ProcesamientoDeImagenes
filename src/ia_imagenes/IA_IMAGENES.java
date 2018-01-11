@@ -47,7 +47,7 @@ public class IA_IMAGENES extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-          System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         launch(args);
     }
     

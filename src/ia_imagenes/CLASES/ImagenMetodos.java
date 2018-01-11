@@ -242,7 +242,7 @@ public class ImagenMetodos {
        for(int i=0; i < imageBlack.rows();i++)
            for(int j=0;j<imageBlack.cols();j++){
                double [] data = imageBlack.get(i, j);
-               data[0] = data[0] * y;
+               data[0] = Math.pow(data[0] , y);
                median.put(i, j, data);
         }
      
@@ -257,9 +257,9 @@ public class ImagenMetodos {
        for(int i=0; i < imageOriginal.rows();i++)
            for(int j=0;j<imageOriginal.cols();j++){
                double [] data = imageOriginal.get(i, j);
-               data[0] = data[0] *b;
-               data[1] = data[1] *g;
-               data[2] = data[2] *r;
+               data[0] = Math.pow(data[0] ,b);
+               data[1] = Math.pow(data[1] ,g);
+               data[2] = Math.pow(data[2] ,r);
                median.put(i, j, data);
         }
      
