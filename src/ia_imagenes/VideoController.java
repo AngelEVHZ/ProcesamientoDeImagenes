@@ -20,6 +20,7 @@ import org.opencv.videoio.VideoCapture;
 
 import ia_imagenes.CLASES.Utils;
 import java.io.File;
+import java.util.Arrays;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -75,6 +76,7 @@ public class VideoController
 		this.currentFrame.setFitWidth(600);
 		
 		this.currentFrame.setPreserveRatio(true);
+                this.bandera=true;
 		
 		if (!this.cameraActive)
 		{
@@ -101,13 +103,13 @@ public class VideoController
                                             Mat frame = grabFrame();
                                             Image imageToShow = Utils.mat2Image(frame);
                                             updateImageView(currentFrame, imageToShow);
-						
+                                            reduceRuido(frame);
 						
 					}
 				};
 				
 				this.timer = Executors.newSingleThreadScheduledExecutor();
-				this.timer.scheduleAtFixedRate(frameGrabber, 0,33, TimeUnit.MILLISECONDS);
+				this.timer.scheduleAtFixedRate(frameGrabber, 0,30, TimeUnit.MILLISECONDS);
 				
 				
 				this.button.setText("Parar");
@@ -152,35 +154,8 @@ public class VideoController
 					
 					
                                         
-                                         if(frame.isContinuous()){
-                                                    if(bandera){
-                                                       f = frame.clone();
-                                                       
-                                                        bandera =false;
-                                                        System.out.println("entre 1");
-                                                     }else{
-                                                       /* System.out.println("entre 2");
-                                                        Mat aux = new Mat();
-                                                        aux = frame.clone();
-                                                       
-                                                        for(int i=0; i < f.rows();i++)
-                                                            for(int j=0;j<f.cols();j++){
-                                                                double [] data = f.get(i, j);
-                                                                double [] data2 = aux.get(i, j);
-                                                                data2[0] = (((i-1)/i) * data[0]) +((1/i)*data2[0]);
-                                                                data2[1] = (((i-1)/i) * data[1]) +((1/i)*data2[1]);
-                                                                data2[2] = (((i-1)/i) * data[2]) +((1/i)*data2[2]);
-                                                                aux.put(i, j, data2);
-                                                            }
-                                                        f= aux.clone();*/
-                                                        
-                                                        }
-                                                    
-                                                    
-                                                   
-                                                }
-                                         System.out.println("");
-					
+                                         
+                                         					
 					
 					
 				}
@@ -195,7 +170,44 @@ public class VideoController
 		
 		return frame;
 	}
-	
+        
+        private void reduceRuido(Mat frame){
+            double e;
+            if(frame.isContinuous()){
+                        if(bandera){
+                            f = frame.clone();
+                            bandera =false;
+                           
+                         }else{
+                            
+                             Mat aux = frame.clone();
+
+                             for(int i=0; i <f.rows();i++){
+                                 for(int j=0;j<f.cols();j++){
+                                     
+                                     double [] data = f.get(i, j);
+                                     double [] data2 = aux.get(i, j);
+                                     
+                                        e = j+1;
+                                     data2[0] = ((((j+1)-1)/e) * data[0]) +((1/e)*data2[0]);
+                                    
+                                     data2[1] = ((((j+1)-1)/e) * data[1]) +((1/e)*data2[1]);
+                                     
+                                     data2[2] = ((((j+1)-1)/e) * data[2]) +((1/e)*data2[2]);
+                                     
+                                     aux.put(i, j, data2);
+                                 }
+                                 
+                             }
+                             f= aux.clone();
+                            }
+                                                    
+                                                    
+                                                   
+                                                
+        }
+           
+        }
 	
 	
 	private void stopAcquisition()
@@ -206,7 +218,7 @@ public class VideoController
 			{
 				
 				this.timer.shutdown();
-				this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
+				this.timer.awaitTermination(30, TimeUnit.MILLISECONDS);
 			}
 			catch (InterruptedException e)
 			{
@@ -223,6 +235,10 @@ public class VideoController
                 
                
 	}
+        @FXML
+        private void img(){
+            Imgcodecs.imwrite("camera.jpg", f);
+        }
         
         @FXML
         public void abrirArchivo(){

@@ -26,6 +26,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#abrirArchivo" text="Abrir Archivo" />
             <Button fx:id="button" alignment="center" onAction="#startCamera" text="Play" />
+            <Button mnemonicParsing="false" onAction="#img" text="imagen sin ruido" />
          </children>
       </HBox>
    </bottom>
