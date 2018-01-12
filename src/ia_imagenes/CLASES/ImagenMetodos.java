@@ -266,6 +266,27 @@ public class ImagenMetodos {
        this.imageViewNueva.setImage(Utils.mat2Image(median));
     
     }
+    
+    
+    public double ssd(Mat parteOriginal,Mat parteMuestra){
+        
+        double ssd=0,result;
+        
+        for(int i=0; i < parteOriginal.rows();i++)
+           for(int j=0;j<parteOriginal.cols();j++){
+               
+               double [] data = parteOriginal.get(i, j);
+               double [] data2 = parteMuestra.get(i, j);
+               
+               
+                       result= (data[0]-data2[0]);
+                       ssd=ssd+Math.pow(ssd, 2);
+               
+              
+        }
+        
+    return ssd;
+}
 
     
 }

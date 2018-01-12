@@ -152,12 +152,8 @@ public class VideoController
 				
 				if (!frame.empty())
 				{
-					
-					
-                                        
-                                         
-                                         					
-					
+
+
 					
 				}
 				
