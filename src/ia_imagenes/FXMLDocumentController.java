@@ -70,6 +70,7 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         metodos = new ImagenMetodos(imageView,imageViewNueva,stage);
         
+        
     }    
 
     public void setStage(Stage stage) {

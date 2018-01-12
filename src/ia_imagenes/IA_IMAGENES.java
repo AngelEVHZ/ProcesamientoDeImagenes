@@ -11,7 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.opencv.core.Core;
-
+import ia_imagenes.CLASES.*;
+import org.opencv.core.Mat;
 /**
  *
  * @author Valenzuela
@@ -48,6 +49,8 @@ public class IA_IMAGENES extends Application {
      */
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        
+       
         launch(args);
     }
     
