@@ -77,23 +77,20 @@ public class ImagenMetodos {
     public void histograma(){
         Mat imgBlack= new Mat();
         Imgproc.cvtColor(this.imageOriginal,imgBlack , Imgproc.COLOR_BGR2GRAY);
-         calcularHistograma(imgBlack);
-         this.imageView.setImage(Utils.mat2Image(this.imageOriginal));
+        calcularHistograma(imgBlack);
+        this.imageView.setImage(Utils.mat2Image(this.imageOriginal));
     
     }
     
-    public void calcularHistograma(Mat img){
-    
-        try {
-            ArrayList<Mat> histImages=new ArrayList<>();
-            histImages.add(img);
-
+    public void calcularHistograma(Mat imagen){
+            ArrayList<Mat> imgList=new ArrayList<>();
+            imgList.add(imagen);
             MatOfInt histSize = new MatOfInt(256);
             final MatOfFloat histRange = new MatOfFloat(0f, 256f);
             Mat b_hist = new  Mat();
-            Imgproc.calcHist(histImages, new MatOfInt(0),new Mat(), b_hist, histSize, histRange, false);
-            int hist_w = img.width();
-            int hist_h = img.height();
+            Imgproc.calcHist(imgList, new MatOfInt(0),new Mat(), b_hist, histSize, histRange, false);
+            int hist_w = imagen.width();
+            int hist_h = imagen.height();
 
             long bin_w;
             bin_w = Math.round((double) (hist_w / 256));
@@ -107,49 +104,39 @@ public class ImagenMetodos {
                    new  Scalar(255, 0, 0), 2, 8, 0);
             }
             this.imageViewNueva.setImage(Utils.mat2Image(histImage));
-            
-       } catch (Exception e) {}
-        
     }
     
     public void ecualizar(){
-       Mat image= new Mat();
-       Imgproc.cvtColor(this.imageOriginal,image , Imgproc.COLOR_BGR2GRAY);
-       try{    
-            Mat destination = new Mat(image.rows(),image.cols(),image.type());
-            Imgproc.equalizeHist(image, destination); 
-            this.imageView.setImage(Utils.mat2Image(destination));
-            calcularHistograma(destination);
-        }catch(Exception ex){}
-       
+       Mat originalBlack= new Mat();
+       Imgproc.cvtColor(this.imageOriginal,originalBlack , Imgproc.COLOR_BGR2GRAY);
+       Mat ecualizada = originalBlack.clone();
+       Imgproc.equalizeHist(originalBlack, ecualizada); 
+       this.imageView.setImage(Utils.mat2Image(ecualizada));
+       calcularHistograma(ecualizada);
     }
-    
-    public void adaptativa(){            
-        double limiteClip=2.8;
-        double rangoInit=10;
-        double rangoEnd=255;
+   
+    public void adaptativa(double cLimit, double rinicio, double rfinal){            
         
-        if(rangoInit<0) rangoInit=1.0;
-        if(rangoEnd<rangoInit){double aux;aux=rangoEnd;rangoEnd=rangoInit;rangoInit=aux;}
-        if(rangoEnd<0)rangoEnd=2.0;
-        if(rangoEnd<rangoInit){double aux;aux=rangoEnd;rangoEnd=rangoInit;rangoInit=aux;}
         
-        Mat source = new Mat();
-        Imgproc.cvtColor(this.imageOriginal,source , Imgproc.COLOR_BGR2GRAY);
-        try{
-                Mat destination = new Mat(source.rows(),source.cols(),source.type());
-                CLAHE abc = Imgproc.createCLAHE();
-                abc.setClipLimit(limiteClip);
-                abc.setTilesGridSize(new Size(rangoInit,rangoEnd));
-                abc.apply(source, destination);
-                this.imageView.setImage(Utils.mat2Image(destination));
-                calcularHistograma(destination);
-                
-            }catch(Exception ex){
-                System.out.println("Error al aplicar histograma adaptativo");
-            }
-           
-           
+        if(rinicio<0) rinicio=1.0;
+        if(rfinal<rinicio){double aux;aux=rfinal;rfinal=rinicio;rinicio=aux;}
+        if(rfinal<0)rfinal=2.0;
+
+       
+        Mat originalBlack = new Mat();
+        Imgproc.cvtColor(this.imageOriginal,originalBlack , Imgproc.COLOR_BGR2GRAY);
+   
+        Mat adaptativa =originalBlack.clone();
+        CLAHE abc = Imgproc.createCLAHE();
+        abc.setClipLimit(cLimit);
+        abc.setTilesGridSize(new Size(rinicio,rfinal));
+        abc.apply(originalBlack, adaptativa);
+        
+        
+        
+        this.imageView.setImage(Utils.mat2Image(adaptativa));
+        calcularHistograma(adaptativa);
+ 
     }
 
 
@@ -284,7 +271,7 @@ public class ImagenMetodos {
                double [] data = p1.get(i, j);
                double [] data2 = alineada.get(i, j);
                
-               data[0] = data[0] - data2[0] ;
+               data[0] = data2[0] - data[0] ;
        //      data[1] = data[1] - data2[1] ;
        //      data[2] = data[2] - data2[2] ;
                

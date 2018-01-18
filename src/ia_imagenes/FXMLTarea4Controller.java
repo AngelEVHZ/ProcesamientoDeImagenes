@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -27,6 +28,9 @@ public class FXMLTarea4Controller implements Initializable {
     public Stage stage;
     @FXML   private ImageView imageOriginal;
     @FXML   private ImageView histograma;
+     @FXML   private TextField a;
+      @FXML   private TextField b;
+       @FXML   private TextField c;
     private  ImagenMetodos metodos;
     @FXML 
     private void abrirImagen(ActionEvent event) {
@@ -43,7 +47,11 @@ public class FXMLTarea4Controller implements Initializable {
     }
     @FXML 
     private void adaptativa(ActionEvent event) {
-      metodos.adaptativa();
+       double cLimit=Double.parseDouble(a.getText());
+       double rinicio=Double.parseDouble(b.getText());
+       double rfinal=Double.parseDouble(c.getText());
+
+      metodos.adaptativa(cLimit,rinicio,rfinal);
     }
     
     @Override
