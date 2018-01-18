@@ -1,5 +1,6 @@
 package ia_imagenes;
 
+import ia_imagenes.CLASES.ImagenMetodos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -58,6 +59,7 @@ public class VideoController
          private Stage stage;
          private File file;
          private FileChooser fileChooser;
+         ImagenMetodos metodos;
 	Mat f;
         boolean bandera= true;
 	int in=0;
@@ -66,6 +68,7 @@ public class VideoController
 		this.capture = new VideoCapture();
                 this.f = new Mat();
 		this.cameraActive = false;
+               metodos = new ImagenMetodos();
 	}
 	
 	
@@ -102,9 +105,10 @@ public class VideoController
 					public void run()
 					{
                                             Mat frame = grabFrame();
-                                            Image imageToShow = Utils.mat2Image(frame);
-                                            updateImageView(currentFrame, imageToShow);
                                             reduceRuido(frame);
+                                            Image imageToShow = Utils.mat2Image(f);
+                                            updateImageView(currentFrame, imageToShow);
+                                           
 						
 					}
 				};
@@ -140,7 +144,7 @@ public class VideoController
 	private Mat grabFrame()
 	{
 		Mat frame = new Mat();
-		
+		//Mat aux = new Mat();
 		
 		if (this.capture.isOpened())
 		{
@@ -152,8 +156,9 @@ public class VideoController
 				
 				if (!frame.empty())
 				{
-
-
+                                    
+                                      //Imgproc.cvtColor(frame,frame, Imgproc.COLOR_BGR2GRAY);
+                                      
 					
 				}
 				
@@ -191,7 +196,7 @@ public class VideoController
                                         e = in+1;
                                      data2[0] = ((((in+1)-1)/e) * data[0]) +((1/e)*data2[0]);
                                     
-                                     data2[1] = ((((in+1)-1)/e) * data[1]) +((1/e)*data2[1]);
+                                    data2[1] = ((((in+1)-1)/e) * data[1]) +((1/e)*data2[1]);
                                      
                                      data2[2] = ((((in+1)-1)/e) * data[2]) +((1/e)*data2[2]);
                                      
@@ -214,6 +219,60 @@ public class VideoController
            
         }
 	
+        private void reduceRuidoAlineado(Mat frame){
+            double e;
+
+             
+            if(frame.isContinuous() ){
+                if(in<30){
+                   
+                        if(bandera){
+                           
+                            f = frame.clone();
+                            bandera =false;
+                           
+                         }else{
+                            
+                             Mat aux = frame.clone();
+                            
+
+                            Mat auxAlin = metodos.alinear2(f, frame); //auxAlin = aux.clone();
+
+                          
+                              
+
+                             for(int i=0; i <auxAlin.rows();i++){
+                                 for(int j=0;j<auxAlin.cols();j++){
+                                     
+                                     double [] data = f.get(i, j);
+                                     double [] data2 = auxAlin.get(i, j);
+                                    
+                                        e = in+1;
+                                        data2[0] = ((((in+1)-1)/e) * data[0]) +((1/e)*data2[0]);
+                                     
+                                     /*data2[1] = ((((in+1)-1)/e) * data[1]) +((1/e)*data2[1]);
+                                     
+                                     data2[2] = ((((in+1)-1)/e) * data[2]) +((1/e)*data2[2]);*/
+                                     
+                                     auxAlin.put(i, j, data2);
+                                 }
+                                 
+                             }
+                             f= auxAlin.clone();
+                             
+                            }
+                        System.out.println("entro:" +in);
+                                                                   
+                }  else if (in==30){
+                Imgcodecs.imwrite("sinruido.jpg", f);
+                    System.out.println("Imagen sin ruido creada");
+            }
+                 
+                 in++;                
+                               
+                                                
+        }
+        }
 	
 	private void stopAcquisition()
 	{

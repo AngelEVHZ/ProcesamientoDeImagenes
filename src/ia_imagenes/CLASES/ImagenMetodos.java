@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -47,6 +48,10 @@ public class ImagenMetodos {
         this.stage = stage;
         
           
+    }
+    
+    public ImagenMetodos(){
+        
     }
     
    
@@ -287,27 +292,32 @@ public class ImagenMetodos {
         
         }
         
-        Imgproc.threshold(diference,diference, 123,255, Imgproc.THRESH_BINARY);   
+        Imgproc.threshold(diference,diference, 5,255, Imgproc.THRESH_BINARY);   
        this.imageViewNueva.setImage(Utils.mat2Image(diference));
        
     
     }
     
     public Mat alinear(Mat imagen1, Mat imagen2){
-        int size=3;
+        int size=5;
+         int pos_x=imagen1.rows()/2;
+        int pos_y=imagen1.cols()/2;
       
         Mat imagen1_gris = new Mat();
         Mat imagen2_gris = new Mat();
         Imgproc.cvtColor(imagen1,imagen1_gris , Imgproc.COLOR_BGR2GRAY);
         Imgproc.cvtColor(imagen2,imagen2_gris , Imgproc.COLOR_BGR2GRAY);
-       
+        
         
         Mat recorte = new Mat();
         recorte.create(size,size ,imagen1_gris.type()); 
         int dx = (recorte.rows()-1)/2;
         int dy = (recorte.cols()-1)/2;
         
-        llenar_recorte(imagen2_gris,recorte,dx,dy);
+       
+        
+        
+        llenar_recorte(imagen2_gris,recorte,dx,dy,pos_x,pos_y);
         
 /*
         System.out.println("");
@@ -329,19 +339,18 @@ public class ImagenMetodos {
         */
         
         
-        int centro_x = imagen2_gris.rows()/2;
-        int centro_y = imagen2_gris.cols()/2;
+        
         
         double[][] matriz_resultante =buscarCoincidencia(imagen1_gris,recorte,dx,dy,size);
         
-        int[] coordenadas = distanciaDeAlineacion(matriz_resultante,imagen1_gris.rows(),imagen1_gris.cols());
+        int[] coordenadas = distanciaDeAlineacion(matriz_resultante,imagen1_gris.rows(),imagen1_gris.cols(),dx,dy);
         
         //System.out.println(coordenadas[0]+"  y "+coordenadas[1]);
         
-        int mx =  coordenadas[0]-centro_x;
-        int my = coordenadas[1]- centro_y;   
+        int mx =  coordenadas[0]-pos_x;
+        int my = coordenadas[1]- pos_y;   
         Mat alineada = nuevaImagen(mx,my,imagen2_gris);
-        
+       
         return alineada;
         //return imagen2;
         //System.out.println("diferencia x"+ mx + "  y "+my);
@@ -349,6 +358,69 @@ public class ImagenMetodos {
         //this.imageViewNueva.setImage(Utils.mat2Image(recorte));
         
     }
+    
+    
+     public Mat alinear2(Mat imagen1, Mat imagen2){
+        int size=31;
+        int pos_x=373;
+        int pos_y=405;
+      
+        Mat imagen1_gris = imagen1.clone();
+        Mat imagen2_gris = imagen2.clone();
+       //Imgproc.cvtColor(imagen1,imagen1_gris , Imgproc.COLOR_BGR2GRAY);
+      // Imgproc.cvtColor(imagen2,imagen2_gris , Imgproc.COLOR_BGR2GRAY);
+        
+        
+        Mat recorte = new Mat();
+        recorte.create(size,size ,imagen1_gris.type()); 
+        int dx = (recorte.rows()-1)/2;
+        int dy = (recorte.cols()-1)/2;
+        
+        
+        
+        
+        llenar_recorte(imagen2_gris,recorte,dx,dy,pos_x,pos_y);
+        
+/*
+        System.out.println("");
+        for (int i = 0; i < imagen1_gris.rows(); i++) {
+            for (int j = 0; j < imagen1_gris.cols(); j++) {
+                System.out.print(imagen1_gris.get(i, j)[0]+" ");
+            }
+            System.out.println("");    
+        }
+        System.out.println("");
+        System.out.println("RESPUESTA");
+        for (int i = 0; i < recorte.rows(); i++) {
+            for (int j = 0; j < recorte.cols(); j++) {
+                 System.out.print(recorte.get(i, j)[0]+" ");
+            }
+            System.out.println("");
+        }
+        
+        */
+        
+        
+        
+        
+        double[][] matriz_resultante =buscarCoincidencia(imagen1_gris,recorte,dx,dy,size);
+        
+        int[] coordenadas = distanciaDeAlineacion(matriz_resultante,imagen1_gris.rows(),imagen1_gris.cols(),dx,dy);
+        
+        //System.out.println(coordenadas[0]+"  y "+coordenadas[1]);
+        
+        int mx =  coordenadas[0]-pos_x;
+        int my = coordenadas[1]- pos_y;   
+        Mat alineada = nuevaImagen(mx,my,imagen2_gris);
+       
+        return alineada;
+        //return imagen2;
+        //System.out.println("diferencia x"+ mx + "  y "+my);
+        //System.out.println("termino");
+        //this.imageViewNueva.setImage(Utils.mat2Image(recorte));
+        
+    }
+    
     public Mat nuevaImagen(int mx,int my, Mat imagen){
         Mat nueva = new Mat();
         nueva.create(imagen.rows(),imagen.cols(),imagen.type());
@@ -367,13 +439,13 @@ public class ImagenMetodos {
         return nueva;
     }
     
-    public int[] distanciaDeAlineacion(double[][] matriz,int sizex, int sizey){
+    public int[] distanciaDeAlineacion(double[][] matriz,int sizex, int sizey,int dx, int dy){
         double menor  =matriz[sizex/2][sizey/2];
         int x=0;
         int y=0;
 
-        for (int i = 1; i < (sizex-1); i++) {
-            for (int j = 1; j < (sizey-1); j++) {
+        for (int i = dx; i < (sizex-dx); i++) {
+            for (int j = dy; j < (sizey-dy); j++) {
                 if(menor > matriz[i][j]){
                     menor =matriz[i][j];
                     x=i;
@@ -457,9 +529,8 @@ public class ImagenMetodos {
         return recorte;
     }
 
-    public void llenar_recorte(Mat imagen, Mat recorte, int dx, int dy) {
-        int centro_x = imagen.rows()/2;
-        int centro_y = imagen.cols()/2;
+    public void llenar_recorte(Mat imagen, Mat recorte, int dx, int dy,int centro_x, int centro_y) {
+        
         //System.out.println(imagen.get(0, 0)[0]); 
         //System.out.println(imagen.get(1, 2)[0]); 
 
