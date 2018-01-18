@@ -35,7 +35,15 @@ public class FXMLTarea4Controller implements Initializable {
     
     @FXML 
     private void escalaGrises(ActionEvent event) {
-        metodos.refresHistogram();
+       metodos.histograma();
+    }
+    @FXML 
+    private void ecualizar(ActionEvent event) {
+      metodos.ecualizar();
+    }
+    @FXML 
+    private void adaptativa(ActionEvent event) {
+      metodos.adaptativa();
     }
     
     @Override
