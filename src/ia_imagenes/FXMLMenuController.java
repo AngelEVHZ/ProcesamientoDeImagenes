@@ -86,6 +86,19 @@ public class FXMLMenuController implements Initializable {
         stage.show();
         
     }
+     @FXML
+    private void tarea5(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLConvolucion.fxml"));
+        Parent root = (Parent)loader.load();
+        FXMLConvolucionController controller = (FXMLConvolucionController)loader.getController();
+        controller.setStage(this.stage);
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
+        
+    }
     
     
     

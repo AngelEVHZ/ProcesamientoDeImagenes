@@ -26,5 +26,6 @@
          <font>
             <Font name="System Bold" size="17.0" />
          </font></Button>
+      <Button layoutX="90.0" layoutY="324.0" mnemonicParsing="false" onAction="#tarea5" text="Button" />
    </children>
 </AnchorPane>
