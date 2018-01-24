@@ -6,9 +6,12 @@
 package ia_imagenes.CLASES;
 
 import java.io.File;
+import java.util.Arrays;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -177,6 +180,23 @@ public class Metodos2 {
         }
  
         return recorte;
+    }
+    
+    public void integral(){
+        
+         Mat muestra = new Mat();
+         Mat ori = this.imageOriginal.clone();
+         Imgproc.cvtColor(ori,ori, Imgproc.COLOR_BGR2GRAY);
+         Imgproc.integral(ori,muestra);
+         for(int i =0; i<ori.rows();i++){
+             for(int j=0 ; j<ori.cols();j++){
+                 System.out.print(Arrays.toString(ori.get(i, j))+",");
+             }
+             System.out.println("");
+         }
+         /*Imgcodecs.imwrite("ort.jpg", muestra);
+         Image img = Utils.mat2Image(ori);
+         Utils.onFXThread(this.imageView.imageProperty(), img);*/
     }
 
 }

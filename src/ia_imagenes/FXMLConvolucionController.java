@@ -44,6 +44,12 @@ public class FXMLConvolucionController implements Initializable {
         if(n%2==0)n+=1;
         metodos.addBlur(n,m);
     }
+    
+     @FXML
+    private void integralImg(ActionEvent event) {
+        
+        metodos.integral();
+    }
   
     
     @Override

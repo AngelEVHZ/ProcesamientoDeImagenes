@@ -105,7 +105,7 @@ public class VideoController
 					public void run()
 					{
                                             Mat frame = grabFrame();
-                                            reduceRuido(frame);
+                                            reduceRuidoAlineado(frame);
                                             Image imageToShow = Utils.mat2Image(f);
                                             updateImageView(currentFrame, imageToShow);
                                            
@@ -157,7 +157,7 @@ public class VideoController
 				if (!frame.empty())
 				{
                                     
-                                      //Imgproc.cvtColor(frame,frame, Imgproc.COLOR_BGR2GRAY);
+                                      Imgproc.cvtColor(frame,frame, Imgproc.COLOR_BGR2GRAY);
                                       
 					
 				}
